@@ -17,7 +17,7 @@ print(utils.get_random_secret_key())
 
 Or use [this online tool](https://miniwebtool.com/django-secret-key-generator/).
 
-3. Create and edit the `/code/config/.env` file as follows:
+2. Create and edit the `/code/config/.env` file as follows:
 
 ```
 DJANGO_SECRET_KEY='<secret_key_you_just_made>'
@@ -25,10 +25,10 @@ DJANGO_DEBUG=True
 DATABASE_URL=postgres://postgres:postgres@db:5432/postgres
 ```
 
-Note that the format of the `DATABASE_URL` is `postgres://{USER}:{PASSWORD}@{HOST}:{PORT}/{NAME}`
+Note that the format of the `DATABASE_URL` is `postgres://{USER}:{PASSWORD}@{HOST}:{PORT}/{NAME}`. You can set these to be whatever you like, but be sure to modify the `docker-compose.yml` file accordingly.
 
-4. Navigate to `/code/` and run `docker-compose up --build` to start the containers.
+3. Navigate to `/code/` and run `docker-compose up --build` to start the containers.
 
-5. Once the build is finished, run `docker-compose exec web python manage.py migrate` to make all migrations to the postgres database. 
+4. Once the build is finished, run `docker-compose exec web python manage.py migrate` to make all migrations to the postgres database. 
 
-6. In a browser, navigate to `localhost:8000/performance/` to make sure the server is working.
+5. In a browser, navigate to `localhost:8000/performance/` to make sure the server is working.
