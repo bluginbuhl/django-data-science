@@ -12,7 +12,8 @@ Requires `Docker` and `docker-compose`. All the Python requirements will be inst
 # Python 3 in an environment with Django installed
 >>> from django.core.management import utils
 
-print(utils.get_random_secret_key())
+>>> print(utils.get_random_secret_key())
+# output will be a random 50-character string
 ```
 
 Or use [this online tool](https://miniwebtool.com/django-secret-key-generator/).
