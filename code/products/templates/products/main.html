@@ -2,10 +2,40 @@
 {% block title %}Products{% endblock title %}
 
 {% block content %}
-<h1>Products Home</h1>
-{{products | safe }}
-<hr>
-{{purchases | safe }}
-<hr>
 {{ df | safe }}
+
+<hr>
+<div>
+  <form action="" method="POST" class="ui form">
+  {% csrf_token %}
+    <div class="field">
+        <label><i class="chart area icon"></i>Choose a chart type:</label>
+        <div class="ui selection dropdown">
+            <input type="hidden" name="sales">
+            <i class="dropdown icon"></i>
+            <div class="default text">-----</div>
+            <div class="menu">
+                <div class="item" value="bar"<i class="chart bar outline icon"></i>>Bar Plot</div>
+                <div class="item" value="line"><i class="chart line icon"></i>Line Plot</div>
+                <div class="item" value="count"><i class="chart pie icon"></i>Count Plot</div>
+            </div>
+        </div>
+    </div>
+    <div class="field">
+      <div class="two fields">
+        <div class="ui field">
+          <label for=""><i class="calendar outline icon"></i>Start Date</label>
+          <input type="date" name="date_from" placeholder="Start Date">
+          
+        </div>
+        <div class="field">
+          <label for=""><i class="calendar outline icon"></i>End Date</label>
+          <input type="date" name="date_to" placeholder="End Date">
+        </div>
+      </div>
+    </div>
+    <button type="submit" class="ui primary button">Submit</button>
+  </form>
+</div>
+
 {% endblock content %}
