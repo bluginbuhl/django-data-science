@@ -10,7 +10,7 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
     <!--Custom css-->
-    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
     
     <!-- semantic UI -->
     <link rel="stylesheet" type='text/css' href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.14/semantic.min.css">
@@ -19,7 +19,13 @@
     <title>DjData - {% block title %}{% endblock title %}</title>
   </head>
   <body>
-    {% block navbar %}{% endblock navbar %}
-    {% block content %}{% endblock content %}
+    {% include 'navbar.html' %}
+
+    <div class="ui container">
+      {% block content %}{% endblock content %}
+    </div>
+
+    <!-- Custom JS -->
+    <script src="{% static 'js/main.js' %}"></script>
   </body>
 </html>
