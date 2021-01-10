@@ -2,9 +2,23 @@
 {% block title %}Products{% endblock title %}
 
 {% block content %}
-{{ df | safe }}
+{% if df %}
+  {{ df }}
+{% endif %}
 
 <hr>
+
+{% if error_message %}
+<div class="ui icon message warning">
+  <i class="warning icon"></i>
+  <i class="close icon"></i>
+  <div class="content">
+    <div class="header">Warning:</div>
+    <p>{{ error_message }}</p>
+  </div>
+</div>
+{% endif %}
+
 <div>
   <form action="" method="POST" class="ui form">
   {% csrf_token %}
@@ -26,7 +40,6 @@
         <div class="ui field">
           <label for=""><i class="calendar outline icon"></i>Start Date</label>
           <input type="date" name="date_from" placeholder="Start Date">
-          
         </div>
         <div class="field">
           <label for=""><i class="calendar outline icon"></i>End Date</label>
