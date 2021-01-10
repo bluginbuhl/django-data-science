@@ -6,7 +6,7 @@ import pandas as pd
 
 def chart_select_view(request):
 
-    error_message = None
+    error_messages = []
     df = None
 
     product_df = pd.DataFrame(Product.objects.all().values())
@@ -27,14 +27,29 @@ def chart_select_view(request):
             date_to = request.POST['date_to']
 
             df['date'] = df['date'].apply(lambda x: x.strftime('%Y-%m-%d'))
-            print(df['date'])
             df2 = df.groupby('date', as_index=False)['total_price'].agg('sum')
             print(df2)
+
+            
+
+            if chart_type != "":
+                if date_from != "" and date_to != "":
+                    df = df[(df['date'] > date_from) & (df['date'] < date_to)]
+                    df2 = df.groupby('date', as_index=False)['total_price'].agg('sum')
+                    if df2.shape[0] == 0:
+                        error_messages.append("No data for the selected date range")
+                else:
+                    pass
+            else:
+                error_messages.append("Please select a chart type to display")
     else:
-        error_message = "No records in database"
+        error_message.append("No records in database")
+
+    if len(error_messages) == 0:
+        error_messages = None
 
     context = {
-        'error_message': error_message,
+            'error_messages': error_messages,
     }
 
     return render(request, 'products/main.html', context)

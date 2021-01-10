@@ -8,15 +8,17 @@
 
 <hr>
 
-{% if error_message %}
-<div class="ui icon message warning">
-  <i class="warning icon"></i>
-  <i class="close icon"></i>
-  <div class="content">
-    <div class="header">Warning:</div>
-    <p>{{ error_message }}</p>
-  </div>
-</div>
+{% if error_messages %}
+  {% for message in error_messages %}
+    <div class="ui icon message warning">
+      <i class="warning icon"></i>
+      <i class="close icon"></i>
+      <div class="content">
+        <div class="header">Warning:</div>
+        <p>{{ message }}</p>
+      </div>
+    </div>
+  {% endfor %}
 {% endif %}
 
 <div>
