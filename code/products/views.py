@@ -17,6 +17,12 @@ def chart_select_view(request):
         ['id_y', 'date_y'], axis=1).rename(
         {'id_x': 'id', 'date_x': 'date'}, axis=1)
 
+    if request.method == 'POST':
+        chart_type = request.POST['sales']
+        date_from = request.POST['date_from']
+        date_to = request.POST['date_to']
+        print(chart_type, date_from, date_to)
+
     context = {
         'products': product_df.to_html(),
         'purchases': purchase_df.to_html(),
