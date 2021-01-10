@@ -2,8 +2,8 @@
 {% block title %}Products{% endblock title %}
 
 {% block content %}
-{% if df %}
-  {{ df }}
+{% if not df.empty %}
+  {{ df.to_html | safe }}
 {% endif %}
 
 <hr>

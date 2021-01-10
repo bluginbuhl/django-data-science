@@ -7,6 +7,7 @@ import pandas as pd
 def chart_select_view(request):
 
     error_message = None
+    df = None
 
     product_df = pd.DataFrame(Product.objects.all().values())
     product_df.rename({
@@ -24,9 +25,7 @@ def chart_select_view(request):
             chart_type = request.POST['sales']
             date_from = request.POST['date_from']
             date_to = request.POST['date_to']
-            print(chart_type, date_from, date_to)
     else:
-        df = None
         error_message = "No records in database"
 
     context = {
