@@ -2,6 +2,7 @@
 {% block title %}Products{% endblock title %}
 
 {% block content %}
+
 {% if not df.empty %}
   {{ df.to_html | safe }}
 {% endif %}
@@ -21,36 +22,46 @@
   {% endfor %}
 {% endif %}
 
-<div>
-  <form action="" method="POST" class="ui form">
-  {% csrf_token %}
-    <div class="field">
-        <label><i class="chart area icon"></i>Choose a chart type:</label>
-        <div class="ui selection dropdown">
-            <input type="hidden" name="sales">
-            <i class="dropdown icon"></i>
-            <div class="default text">-----</div>
-            <div class="menu">
-                <div class="item" data-value="bar">Bar Plot</div>
-                <div class="item" data-value="line">Line Plot</div>
-                <div class="item" data-value="count">Count Plot</div>
-            </div>
-        </div>
-    </div>
-    <div class="field">
-      <div class="two fields">
+<div class="ui centered card">
+  <div class="content">
+    <form action="" method="POST" class="ui form">
+    {% csrf_token %}
+      <div class="three fields">
         <div class="ui field">
-          <label for=""><i class="calendar outline icon"></i>Start Date</label>
-          <input type="date" name="date_from" placeholder="Start Date">
-        </div>
-        <div class="field">
-          <label for=""><i class="calendar outline icon"></i>End Date</label>
-          <input type="date" name="date_to" placeholder="End Date">
-        </div>
+            <label><i class="chart area icon"></i>Choose a chart type:</label>
+            <div class="ui selection dropdown">
+                <input type="hidden" name="sales">
+                <i class="dropdown icon"></i>
+                <div class="default text">-----</div>
+                <div class="menu">
+                    <div class="item" data-value="bar">Bar Plot</div>
+                    <div class="item" data-value="line">Line Plot</div>
+                    <div class="item" data-value="count">Count Plot</div>
+                </div>
+            </div>
+          </div>
+          <div class="field">
+            <label for=""><i class="calendar outline icon"></i>Start Date</label>
+            <input type="date" name="date_from" placeholder="Start Date">
+          </div>
+          <div class="field">
+            <label for=""><i class="calendar outline icon"></i>End Date</label>
+            <input type="date" name="date_to" placeholder="End Date">
+          </div>
       </div>
-    </div>
-    <button type="submit" class="ui primary button">Submit</button>
-  </form>
+      <button type="submit" class="ui primary button">Submit</button>
+    </form>
+  </div>
 </div>
+
+{% if request.POST %}
+  <div class="ui centered card">
+    <div class="image">
+      {% if graph %}
+        <img src="data:image/png;base64, {{ graph | safe }}" alt="">
+      {% endif %}
+    </div>
+  </div>
+{% endif %}
 
 {% endblock content %}

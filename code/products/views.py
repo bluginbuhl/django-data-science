@@ -1,12 +1,15 @@
 from django.shortcuts import render
-from .models import Product, Purchase
 
 import pandas as pd
+
+from .models import Product, Purchase
+from .utils import get_simple_plot
 
 
 def chart_select_view(request):
 
     error_messages = []
+    graph = None
     df = None
 
     product_df = pd.DataFrame(Product.objects.all().values())
@@ -28,9 +31,7 @@ def chart_select_view(request):
 
             df['date'] = df['date'].apply(lambda x: x.strftime('%Y-%m-%d'))
             df2 = df.groupby('date', as_index=False)['total_price'].agg('sum')
-            print(df2)
-
-            
+            print(df2.shape)
 
             if chart_type != "":
                 if date_from != "" and date_to != "":
@@ -38,8 +39,8 @@ def chart_select_view(request):
                     df2 = df.groupby('date', as_index=False)['total_price'].agg('sum')
                     if df2.shape[0] == 0:
                         error_messages.append("No data for the selected date range")
-                else:
-                    pass
+                # function to get chart
+                graph = get_simple_plot(chart_type, x=df2['date'], y=df2['total_price'], data=df)
             else:
                 error_messages.append("Please select a chart type to display")
     else:
@@ -50,6 +51,7 @@ def chart_select_view(request):
 
     context = {
             'error_messages': error_messages,
+            'graph': graph
     }
 
     return render(request, 'products/main.html', context)
