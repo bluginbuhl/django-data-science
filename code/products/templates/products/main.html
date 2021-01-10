@@ -2,7 +2,7 @@
 {% block title %}Products{% endblock title %}
 
 {% block navbar %}
-<div class="ui secondary pointing menu">
+<div class="ui container secondary pointing menu">
   <a href="#" class="active item">
     Home
   </a>
@@ -37,4 +37,6 @@
 {{products | safe }}
 <hr>
 {{purchases | safe }}
+<hr>
+{{ df | safe }}
 {% endblock content %}
