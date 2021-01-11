@@ -83,3 +83,7 @@ GitHub.sublime-settings
 !.vscode/launch.json 
 !.vscode/extensions.json 
 .history
+
+# other
+sales_data_2.csv
+/static_cdn/
