@@ -1,13 +1,17 @@
+{% url 'products:home' as path_to_home %}
+{% url 'products:dashboard' as path_to_dashboard %}
+{% url 'products:add-record' as path_to_add_records %}
+
 <div class="nav">
   <div class="ui container">
     <div class="brand">DjangoData Inc.</div>
   </div>
   <div class="ui container secondary pointing menu">
-    <a href="/" class="item">Home</a>
-    <a href="/performance" class="item">Performance</a>
+    <a href="{{ path_to_home }}" class="item {% if request.path == path_to_home %}active{% endif %}">Home</a>
+    <a href="{{ path_to_dashboard }}" class="item {% if request.path == path_to_dashboard%}active{% endif %}">Performance</a>
     <a href="#" class="item">Sales</a>
     <a href="#" class="item">Customers</a>
-    <a href="/add" class="item">Add records</a>
+    <a href="{{ path_to_add_records }}" class="item {% if request.path == path_to_add_records %}active{% endif %}">Add records</a>
     <a href="#" class="item">Upload file</a>
     <div class="right menu">
       <a href="#" class="item">Login</a>
