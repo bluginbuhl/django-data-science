@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.views.generic import TemplateView
 
 import pandas as pd
 
@@ -6,9 +7,12 @@ from .models import Product, Purchase
 from .utils import get_alert_message, get_simple_plot
 
 
+class HomepageView(TemplateView):
+    template_name = 'products/home.html'
+
 def chart_select_view(request):
 
-    welcome_message = get_alert_message("Welcome!", "Please select a chart type and date range to display data", "green", "heart")
+    welcome_message = get_alert_message("Welcome to the Dashboard!", "Please select a chart type and date range to display data", "green", "heart")
 
     messages = []
     graph = None

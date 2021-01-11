@@ -1,9 +1,10 @@
 from django.urls import path
-from .views import chart_select_view
+from .views import HomepageView, chart_select_view
 
 
 app_name = 'products'
 
 urlpatterns = [
-    path('', chart_select_view, name='main-products-view'),
+    path('', HomepageView.as_view(), name='home'),
+    path('performance/', chart_select_view, name='dashboard'),
 ]
