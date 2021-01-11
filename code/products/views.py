@@ -75,4 +75,4 @@ def chart_select_view(request):
             'price': price,
     }
 
-    return render(request, 'products/main.html', context)
+    return render(request, 'products/dashboard.html', context)

@@ -29,15 +29,15 @@ def get_simple_plot(chart_type, *args, **kwargs):
     data = kwargs.get('data')
 
     if chart_type == 'bar':
-        plt.title("Bar Plot")
+        # plt.title("Bar Plot")
         plt.ylabel("Total Sales / [$]")
         plt.bar(x, y)
     elif chart_type == 'line':
-        plt.title("Line Plot")
+        # plt.title("Line Plot")
         plt.ylabel("Total Sales / [$]")
         plt.plot(x, y)
     else:
-        plt.title("Count")
+        plt.title("Number of Sales by Product")
         sns.countplot('name', data=data)
 
     plt.tight_layout()

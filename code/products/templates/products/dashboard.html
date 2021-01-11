@@ -92,16 +92,25 @@
   </div>
 </div>
 
+<div class="ui centered card">
+  <div class="ui button positive">Add records</div>
+</div>
+
 {% if request.POST %}
   <div class="ui centered card">
-    <div class="image">
-      {% if graph %}
-        <img src="data:image/png;base64, {{ graph | safe }}" alt="">
-      {% endif %}
-    </div>
-    <div class="ui bottom attached button" id="modal-btn">
-      <i class="info icon"></i>
-      See Statistics
+    <div class="content">
+      <div class="ui header">Data for {{ dates.0 }} through {{ dates.1 }}</div>
+      <div class="ui centered card">
+        <div class="image">
+          {% if graph %}
+            <img src="data:image/png;base64, {{ graph | safe }}" alt="">
+          {% endif %}
+        </div>
+        <div class="ui bottom attached button" id="modal-btn">
+          <i class="info icon"></i>
+          Sales Statistics
+        </div>
+      </div>
     </div>
   </div>
 {% else %}
