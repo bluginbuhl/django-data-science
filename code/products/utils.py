@@ -3,6 +3,8 @@ import seaborn as sns
 from io import BytesIO
 import base64
 
+def get_alert_message(title, message, alert_level, icon=None):
+    return {'title': title, 'text': message, 'alert_level': alert_level, 'icon': icon}
 
 def get_image():
     buffer = BytesIO()  # create a bytes buffer for the image to save
@@ -32,12 +34,14 @@ def get_simple_plot(chart_type, *args, **kwargs):
         plt.bar(x, y)
     elif chart_type == 'line':
         plt.title("Line Plot")
+        plt.ylabel("Total Sales / [$]")
         plt.plot(x, y)
     else:
         plt.title("Count")
         sns.countplot('name', data=data)
 
     plt.tight_layout()
+    plt.ion()
 
     graph = get_image()
     return graph

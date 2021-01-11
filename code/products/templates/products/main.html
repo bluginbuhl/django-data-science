@@ -7,20 +7,20 @@
   {{ df.to_html | safe }}
 {% endif %}
 
-<hr>
-
-{% if error_messages %}
-  {% for message in error_messages %}
-    <div class="ui icon message warning">
-      <i class="warning icon"></i>
+{% if messages %}
+  {% for message in messages %}
+    <div class="ui icon message {{message.alert_level }}">
+      <i class="{{ message.icon }} icon"></i>
       <i class="close icon"></i>
       <div class="content">
-        <div class="header">Warning:</div>
-        <p>{{ message }}</p>
+        <div class="header">{{ message.title }}</div>
+        <p>{{ message.text }}</p>
       </div>
     </div>
   {% endfor %}
 {% endif %}
+
+<div class="ui huge header">Performance Dashboard</div>
 
 <div class="ui centered card">
   <div class="content">
@@ -61,6 +61,14 @@
         <img src="data:image/png;base64, {{ graph | safe }}" alt="">
       {% endif %}
     </div>
+    <div class="ui bottom attached button">
+      <i class="save icon"></i>
+      Save Graph
+    </div>
+  </div>
+{% else %}
+  <div class="ui placeholder segment">
+    <div class="ui header">Select a chart type above to display sales data</div>
   </div>
 {% endif %}
 

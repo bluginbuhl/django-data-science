@@ -3,12 +3,14 @@ from django.shortcuts import render
 import pandas as pd
 
 from .models import Product, Purchase
-from .utils import get_simple_plot
+from .utils import get_alert_message, get_simple_plot
 
 
 def chart_select_view(request):
 
-    error_messages = []
+    welcome_message = get_alert_message("Welcome!", "Please select a chart type and date range to display data", "green", "heart")
+
+    messages = []
     graph = None
     df = None
 
@@ -19,6 +21,9 @@ def chart_select_view(request):
     })
     product_df['product_id'] = product_df['id']
     purchase_df = pd.DataFrame(Purchase.objects.all().values())
+
+    if request.method == 'GET':
+        messages.append(welcome_message)
 
     if purchase_df.shape[0] > 0:
         df = pd.merge(purchase_df, product_df, on='product_id').drop(
@@ -31,26 +36,28 @@ def chart_select_view(request):
 
             df['date'] = df['date'].apply(lambda x: x.strftime('%Y-%m-%d'))
             df2 = df.groupby('date', as_index=False)['total_price'].agg('sum')
-            print(df2.shape)
 
             if chart_type != "":
                 if date_from != "" and date_to != "":
                     df = df[(df['date'] > date_from) & (df['date'] < date_to)]
                     df2 = df.groupby('date', as_index=False)['total_price'].agg('sum')
                     if df2.shape[0] == 0:
-                        error_messages.append("No data for the selected date range")
+                        e = get_alert_message("Error", "No data for the selected date range", "red", "times")
+                        messages.append(e)
                 # function to get chart
                 graph = get_simple_plot(chart_type, x=df2['date'], y=df2['total_price'], data=df)
             else:
-                error_messages.append("Please select a chart type to display")
+                e = get_alert_message("Select Chart Type", "Please select a chart type from the dropdown menu", "yellow", "warning")
+                messages.append(e)
     else:
-        error_message.append("No records in database")
+        e = get_alert_message("Error:", "No records in the database", "yellow", "warning")
+        messages.append(e)
 
-    if len(error_messages) == 0:
-        error_messages = None
+    if len(messages) == 0:
+        messages = None
 
     context = {
-            'error_messages': error_messages,
+            'messages': messages,
             'graph': graph
     }
 
