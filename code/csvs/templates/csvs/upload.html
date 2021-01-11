@@ -1,0 +1,30 @@
+{% extends '_base.html' %}
+{% load static %}
+{% block title %}Upload{% endblock title %}
+
+{% block content %}
+
+{% if messages %}
+  {% for message in messages %}
+    <div class="ui icon message {{message.alert_level }}">
+      <i class="{{ message.icon }} icon"></i>
+      <i class="close icon"></i>
+      <div class="content">
+        <div class="header">{{ message.title }}</div>
+        <p>{{ message.text }}</p>
+      </div>
+    </div>
+  {% endfor %}
+{% endif %}
+
+<div class="ui huge header">Upload CSV Data</div>
+<div class="ui centered card">
+  <div class="content">
+    <form action="" method="POST" class="ui form">
+      {% csrf_token %}
+      {{ form.as_table }}
+      <button type="submit" class="ui positive button mt-3">Upload File</button>
+    </form>
+  </div>
+</div>
+{% endblock content %}

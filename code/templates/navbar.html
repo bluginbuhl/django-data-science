@@ -1,6 +1,7 @@
 {% url 'products:home' as path_to_home %}
 {% url 'products:dashboard' as path_to_dashboard %}
 {% url 'products:add-record' as path_to_add_records %}
+{% url 'csvs:upload-view' as path_to_upload %}
 
 <div class="nav">
   <div class="ui container">
@@ -12,7 +13,7 @@
     <a href="#" class="item">Sales</a>
     <a href="#" class="item">Customers</a>
     <a href="{{ path_to_add_records }}" class="item {% if request.path == path_to_add_records %}active{% endif %}">Add records</a>
-    <a href="#" class="item">Upload file</a>
+    <a href="{{ path_to_upload }}" class="item {% if request.path == path_to_upload %}active{% endif %}">Upload file</a>
     <div class="right menu">
       <a href="#" class="item">Login</a>
     </div>
