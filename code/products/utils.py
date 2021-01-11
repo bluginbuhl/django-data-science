@@ -40,6 +40,7 @@ def get_simple_plot(chart_type, *args, **kwargs):
         plt.title("Number of Sales by Product")
         sns.countplot('name', data=data)
 
+    plt.xticks(rotation=45)
     plt.tight_layout()
     plt.ion()
 
