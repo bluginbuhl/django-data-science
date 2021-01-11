@@ -5,6 +5,7 @@ import pandas as pd
 
 from .models import Product, Purchase
 from .utils import get_alert_message, get_simple_plot
+from .forms import PurchaseForm
 
 
 class HomepageView(TemplateView):
@@ -76,3 +77,27 @@ def chart_select_view(request):
     }
 
     return render(request, 'products/dashboard.html', context)
+
+def add_purchase_view(request):
+    messages = []
+    form = PurchaseForm(request.POST or None)
+
+    if form.is_valid():
+        obj = form.save(commit=False)
+        obj.salesperson = request.user
+        obj.save()
+        
+        m = get_alert_message("Record Added", "Successfully added a record to the database", "green", "check")
+        messages.append(m)
+
+        form = PurchaseForm()
+    # else:
+    #     m = get_alert_message("Error", "There was an error adding the record. Please fix them form", "red", "times")
+    #     messages.append(m)
+
+    context = {
+        'form': form,
+        'messages': messages,
+    }
+
+    return render(request, 'products/add.html', context)

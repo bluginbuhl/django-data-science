@@ -66,7 +66,7 @@
     {% csrf_token %}
       <div class="three fields">
         <div class="ui field">
-            <label><i class="chart area icon"></i>Choose a chart type:</label>
+            <label><i class="chart area icon"></i>Chart Type</label>
             <div class="ui selection dropdown">
                 <input type="hidden" name="sales">
                 <i class="dropdown icon"></i>
@@ -93,7 +93,7 @@
 </div>
 
 <div class="ui centered card">
-  <div class="ui button positive">Add records</div>
+  <a href="{% url 'products:add-record' %}"><div class="ui button positive field-100-w">Add records</div></a>
 </div>
 
 {% if request.POST %}
