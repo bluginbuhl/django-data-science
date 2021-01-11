@@ -17,6 +17,7 @@ def chart_select_view(request):
     messages = []
     graph = None
     df = None
+    price = None
 
     product_df = pd.DataFrame(Product.objects.all().values())
     product_df.rename({
@@ -33,6 +34,7 @@ def chart_select_view(request):
         df = pd.merge(purchase_df, product_df, on='product_id').drop(
             ['id_y', 'date_y'], axis=1).rename(
             {'id_x': 'id', 'date_x': 'date'}, axis=1)
+        price = df['price']
         if request.method == 'POST':
             chart_type = request.POST['sales']
             date_from = request.POST['date_from']
@@ -62,7 +64,8 @@ def chart_select_view(request):
 
     context = {
             'messages': messages,
-            'graph': graph
+            'graph': graph,
+            'price': price,
     }
 
     return render(request, 'products/main.html', context)

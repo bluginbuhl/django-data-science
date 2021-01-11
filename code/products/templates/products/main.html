@@ -22,6 +22,28 @@
 
 <div class="ui huge header">Performance Dashboard</div>
 
+<div class="ui modal">
+  <div class="header">Statistics</div>
+  <div class="content">
+  <table class="ui celled table">
+    <thead>
+      <tr>
+        <th>Average Price of Sale</th>
+        <th>Std Dev of Sale Price</th>
+        <th>Median Price of Sale</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>${{ price.mean | floatformat:2 }}</td>
+        <td>${{ price.std | floatformat:2 }}</td>
+        <td>${{ price.median | floatformat:2 }}</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</div>
+
 <div class="ui centered card">
   <div class="content">
     <form action="" method="POST" class="ui form">
@@ -61,9 +83,9 @@
         <img src="data:image/png;base64, {{ graph | safe }}" alt="">
       {% endif %}
     </div>
-    <div class="ui bottom attached button">
-      <i class="save icon"></i>
-      Save Graph
+    <div class="ui bottom attached button" id="modal-btn">
+      <i class="info icon"></i>
+      See Statistics
     </div>
   </div>
 {% else %}
