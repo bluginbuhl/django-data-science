@@ -22,12 +22,27 @@
 
 <div class="ui huge header">Performance Dashboard</div>
 
-<div class="ui modal">
+<div class="ui small modal">
   <div class="header">Statistics</div>
   <div class="content">
+  <table class="ui compact table">
+    <thead>
+      <tr>
+        <th>From Date</th>
+        <th>To Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{ dates.0 }}</td>
+        <td>{{ dates.1 }}</td>
+      </tr>
+    </tbody>
+  </table>
   <table class="ui celled table">
     <thead>
       <tr>
+        <th>Total Sales</th>
         <th>Average Price of Sale</th>
         <th>Std Dev of Sale Price</th>
         <th>Median Price of Sale</th>
@@ -35,6 +50,7 @@
     </thead>
     <tbody>
       <tr>
+        <td>{{ price.count }}</td>
         <td>${{ price.mean | floatformat:2 }}</td>
         <td>${{ price.std | floatformat:2 }}</td>
         <td>${{ price.median | floatformat:2 }}</td>

@@ -17,6 +17,8 @@ def chart_select_view(request):
     messages = []
     graph = None
     df = None
+    date_from = None
+    date_to = None
     price = None
 
     product_df = pd.DataFrame(Product.objects.all().values())
@@ -28,6 +30,8 @@ def chart_select_view(request):
     purchase_df = pd.DataFrame(Purchase.objects.all().values())
 
     if request.method == 'GET':
+        date_from = ""
+        date_to = ""
         messages.append(welcome_message)
 
     if purchase_df.shape[0] > 0:
@@ -61,10 +65,13 @@ def chart_select_view(request):
 
     if len(messages) == 0:
         messages = None
+    
+    dates = [date_from, date_to]
 
     context = {
             'messages': messages,
             'graph': graph,
+            'dates': dates,
             'price': price,
     }
 
